@@ -1,13 +1,25 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Dashboard from './Components/Dashboard';
 import Login from './Components/Login';
-import Salary from './Components/Salary';
-import Attendance from './Components/Attendance';
 import Signup from './Components/Signup';
-import './App.css';  
+import Salary from './Components/Salary';
+import Attendance from './Components/Attendance'
+import './App.css'; // Add your main application CSS file
 
-function App() {
+const App = () => {
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  const handleLogin = (username) => {
+    // Set the logged-in user state
+    setLoggedInUser(username);
+  };
+
+  const handleLogout = () => {
+    // Clear the logged-in user state on logout
+    setLoggedInUser(null);
+  };
+
   const facultyData = [
     {
       id: 1,
@@ -170,21 +182,27 @@ function App() {
       deductions: 600
     }
   ];
-  
 
   return (
     <Router>
       <div className="App">
+        <h1>Faculty Management System</h1>
         <Routes>
+          {/* Route to login if not logged in */}
+          <Route path="/dashboard" element={<Dashboard facultyData={facultyData} />} />
+          <Route path="/" element={loggedInUser ? <Navigate to="/dashboard" /> : <Login onLogin={handleLogin} />} />
+          
+          {/* Route to dashboard if logged in */}
+          <Route path="/dashboard" element={loggedInUser ? <Dashboard username={loggedInUser} onLogout={handleLogout} /> : <Navigate to="/" />} />
+          
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/salary" element={<Salary facultyData={facultyData} />} />
           <Route path="/attendance" element={<Attendance faculty={facultyData} />} />
-          <Route path="/" element={<Dashboard facultyData={facultyData} />} />
         </Routes>
       </div>
     </Router>
   );
-}
+};
 
 export default App;
