@@ -34,6 +34,7 @@ h1 {
 .role-card h2 {
   font-size: 1.2rem;
   text-align: center;
+  color: gray;
 }
 
 .role-card:hover {
@@ -50,8 +51,9 @@ h1 {
 .signup-form {
   width: 100%;
   max-width: 400px;
-  background-color: #f9f9f9;
+  background-color: #fff;
   padding: 20px;
+  color: black;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -93,4 +95,8 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+
+.text-right{
+  color: black;
 }

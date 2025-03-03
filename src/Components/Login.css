@@ -118,3 +118,7 @@ button:hover {
 .forgot-password a:hover, .register-link a:hover {
   text-decoration: underline;
 }
+
+.text-right{
+  color: black;
+}
