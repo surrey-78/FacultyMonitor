@@ -1,21 +1,36 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [role, setRole] = useState(null); // To track selected role
+  const [role, setRole] = useState(null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (role === 'administrator' && username === 'admin' && password === 'admin123') {
-      navigate('/admin-dashboard'); // Navigate to admin dashboard
-    } else if (role === 'faculty' && username === 'faculty' && password === 'faculty123') {
-      navigate('/faculty-dashboard'); // Navigate to faculty dashboard
-    } else {
-      alert('Invalid username or password. Please try again.');
+    try {
+      const response = await axios.post('http://localhost:3500/api/v1/login', {
+        role,
+        username,
+        password,
+      });
+
+      if (response.status === 201) {
+        alert(`Welcome ${response.data.firstName} ${response.data.lastName}!`);
+        localStorage.setItem('token', response.data.token);
+        
+        if (role === 'administrator') {
+          navigate('/admin-dashboard');
+        } else if (role === 'faculty') {
+          navigate('/faculty-dashboard');
+        }
+      }
+    } catch (error) {
+      alert(`Status: ${error.response?.status} - ${error.response?.data?.message}`);
     }
   };
 
@@ -62,6 +77,12 @@ const Login = () => {
             </div>
             <button type="submit">Login</button>
           </form>
+          <p className='forgot-password text-right'>
+            <a href='#'>Forgot Password?</a>
+          </p>
+          <p className='text-right'>
+            New User? <Link to='/signup'>Register here!</Link>
+          </p>
         </div>
       )}
     </div>

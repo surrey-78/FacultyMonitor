@@ -186,7 +186,6 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <h1>Faculty Management System</h1>
         <Routes>
           {/* Route to login if not logged in */}
           <Route path="/dashboard" element={<Dashboard facultyData={facultyData} />} />

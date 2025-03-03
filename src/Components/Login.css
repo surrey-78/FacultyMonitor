@@ -1,16 +1,19 @@
 /* General styling */
 .login-container {
   display: flex;
+  color: white;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
   font-family: Arial, sans-serif;
+  min-height: 100vh;
 }
 
 h1 {
   font-size: 2rem;
   margin-bottom: 20px;
+  color: #ffffff;
 }
 
 .role-selection {
@@ -29,11 +32,13 @@ h1 {
   border-radius: 8px;
   cursor: pointer;
   transition: transform 0.2s, background-color 0.2s;
+  background-color: white;
 }
 
 .role-card h2 {
   font-size: 1.2rem;
   text-align: center;
+  color: gray;
 }
 
 .role-card:hover {
@@ -50,7 +55,7 @@ h1 {
 .login-form {
   width: 100%;
   max-width: 400px;
-  background-color: #f9f9f9;
+  background-color: white;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -60,6 +65,7 @@ h1 {
 .login-form h2 {
   margin-bottom: 20px;
   font-size: 1.5rem;
+  color: #333;
 }
 
 .form-group {
@@ -70,6 +76,7 @@ h1 {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #333;
 }
 
 .form-group input {
@@ -77,6 +84,7 @@ h1 {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 1rem;
 }
 
 button {
@@ -93,4 +101,20 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+
+/* Additional styling for links */
+.forgot-password, .register-link {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.forgot-password a, .register-link a {
+  color: #4caf50;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.forgot-password a:hover, .register-link a:hover {
+  text-decoration: underline;
 }
