@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Login.css';
 
@@ -10,27 +9,26 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:3500/api/v1/login', {
-        role,
-        username,
-        password,
-      });
+  // Hardcoded credentials for testing
+  const validCredentials = {
+    administrator: { username: 'admin', password: 'admin123' },
+    faculty: { username: 'faculty', password: 'faculty123' }
+  };
 
-      if (response.status === 201) {
-        alert(`Welcome ${response.data.firstName} ${response.data.lastName}!`);
-        localStorage.setItem('token', response.data.token);
-        
-        if (role === 'administrator') {
-          navigate('/admin-dashboard');
-        } else if (role === 'faculty') {
-          navigate('/faculty-dashboard');
-        }
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    if (role && validCredentials[role]?.username === username && validCredentials[role]?.password === password) {
+      alert(`Welcome, ${username}!`);
+      localStorage.setItem('userRole', role);
+
+      if (role === 'administrator') {
+        navigate('/admin-dashboard');
+      } else if (role === 'faculty') {
+        navigate('/faculty-dashboard');
       }
-    } catch (error) {
-      alert(`Status: ${error.response?.status} - ${error.response?.data?.message}`);
+    } else {
+      alert('Invalid credentials! Please try again.');
     }
   };
 
