@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Dashboard from './Components/Dashboard';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Salary from './Components/Salary';
@@ -33,8 +32,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
 
           {/* Protected Routes */}
-          <Route path="/dashboard" element={loggedInUser ? <Dashboard username={loggedInUser} onLogout={handleLogout} facultyData={facultyData} /> : <Navigate to="/login" />} />
-          <Route path="/salary" element={loggedInUser ? <Salary facultyData={facultyData} /> : <Navigate to="/login" />} />
+           <Route path="/salary" element={loggedInUser ? <Salary facultyData={facultyData} /> : <Navigate to="/login" />} />
           <Route path="/attendance" element={loggedInUser ? <Attendance faculty={facultyData} /> : <Navigate to="/login" />} />
         </Routes>
       </div>
